@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- Bootstrap -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <meta charset="UTF-8">
+    <title>WHHB TweetBot</title>
+</head>
+<body>
+<div class="container">
+<div class="row page-header"><h1 class="col-md-12">WHHB TweetBot <span style="color: #BDBDBD; font-size: 20px;">Schedule</span></h1></div>
+<div id="navigation">
+    <nav class="navbar navbar-default">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Schedule</a></li>
+            <li><a href="/add">Add Show</a></li>
+        </ul>
+    </nav>
+</div>
+<div class="row">
+    {{ shows }}
+</div>
+</div>
+</body>
+</html>
