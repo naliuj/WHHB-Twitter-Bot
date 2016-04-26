@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block body %}
+<div id="navigation">
+    <nav class="navbar navbar-default">
+        <ul class="nav navbar-nav">
+            <li><a href="/">Schedule</a></li>
+            <li><a href="/add/">Add Show</a></li>
+            <li class="active"><a href="/manual-tweet/">Manual Tweet</a></li>
+        </ul>
+    </nav>
+</div>
+{% if status == None %}
+<div class="alert alert-info"><strong>Welcome!</strong> Send a tweet right from this site:</div>
+{% elif status == "success" %}
+<div class="alert alert-success"><strong>Success!</strong> Tweet sent!</div>
+{% elif status == "failed" %}
+<div class="alert alert-danger"><strong>Error!</strong> Sending failed!</div>
+{% endif %}
+<form role="form" action="/manual-tweet/" method="post">
+	<div class="form-group">
+		<label for="message">Tweet:</label>
+		<textarea class="form-control" name="message" rows="2" maxlength="140"></textarea>
+	</div>
+	<input class="form-control btn btn-info" type="submit" value="Send Tweet"></input>
+</form>
+{% endblock %}

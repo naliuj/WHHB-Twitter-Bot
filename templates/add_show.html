@@ -4,19 +4,20 @@
     <nav class="navbar navbar-default">
         <ul class="nav navbar-nav">
             <li><a href="/">Schedule</a></li>
-            <li class="active"><a href="/add">Add Show</a></li>
+            <li class="active"><a href="/add/">Add Show</a></li>
+            <li><a href="/manual-tweet/">Manual Tweet</a></li>
         </ul>
     </nav>
 </div>
 {% if alert == None %}
-<div class="alert alert-default"><strong>Welcome!</strong> Add a show using the form below.</div>
+<div class="alert alert-info"><strong>Welcome!</strong> Add a show using the form below.</div>
 {% elif alert == "success" %}
 <div class="alert alert-success"><strong>Success!</strong> Show added successfully!</div>
 {% elif alert == "taken" %}
 <div class="alert alert-danger"><strong>Error!</strong> Time slot is already taken!</div>
 {% endif %}
 <div class="row">
-<form action="/added/" method="post" role="form">
+<form action="/add/" method="post" role="form">
     	<div class="col-md-6">
     		<label for="show-name">Show Name:</label>
     		<input class="form-control" id="show-name" name="show-name" type="text"></input><br>

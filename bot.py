@@ -1,3 +1,3 @@
-from auth import authenticate
+from twitter_auth import authenticate
 
-t = authenticate()
+api = authenticate()
