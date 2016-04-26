@@ -8,12 +8,12 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return render_template("index.html", shows=get_table())
+    return render_template("index.html", shows=get_table(), slots=db.read(), subheading="Schedule")
 
 
 @app.route("/add/")
 def add_show():
-    return render_template("add_show.html", alert=None)
+    return render_template("add_show.html", alert=None, subheading="Adding New Show")
 
 
 @app.route("/added/", methods=["POST"])
@@ -29,6 +29,16 @@ def added_show():
                  ''
                  ]
     db.add(show_info)
+    return redirect(url_for("index"))
+
+
+@app.route("/remove/", methods=["POST"])
+def remove_show():
+    show_info = request.form["slot"]
+    try:
+        db.remove(show_info.split("`"))
+    except IndexError:
+        pass
     return redirect(url_for("index"))
 
 if __name__ == "__main__":

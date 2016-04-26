@@ -56,9 +56,9 @@ def read():
 
 
 # Remove a single value from the database
-def remove(day, start, end):
+def remove(slot):
     conn, c = connect()
-    c.execute("DELETE FROM shows WHERE day=? AND start=? and end=?", (day, start, end))
+    c.execute("DELETE FROM shows WHERE day=? AND start=? and end=?", (slot[0], slot[1], slot[2]))
     commit(conn)
     disconnect(conn)
 

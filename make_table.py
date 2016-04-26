@@ -10,6 +10,7 @@ class Item(object):
         self.end = end
         self.hosts = hosts
 
+
 class ItemTable(Table):
 
     classes = ['table', 'table-striped', 'table-hover']
@@ -19,16 +20,16 @@ class ItemTable(Table):
     end = Col('End Time')
     hosts = Col('Host(s)')
 
+    """
     def tr_format(self, item):
-            return '<tr onclick="delete()">{}</tr>'
+        return '<tr>{}</tr>'
+    """
 
 
 # Yields the name of each host
 def host_calc(row):
     row = row[4:9]
-    print(row)
     for i in range(0, 4):
-        print(i)
         if str(row[i]) is not '':
             yield row[i]
 
