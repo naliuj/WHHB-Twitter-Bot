@@ -59,11 +59,11 @@ def send_tweet():
     except tweepy.error.TweepError:
         return render_template("manual_tweet.html", subheading="Send Tweet Manually", status="failed")
 
-# Error Handling
 
 @app.errorhandler(404)
 def page_note_found(e):
-    return render_template("404.html"), 404
+    print(e)
+    return render_template("error.html", subheading=e, error=e), 404
 
 if __name__ == "__main__":
     app.run(debug=True)
