@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block body %}
+{% if error %}
+<div class="alert alert-danger"><strong>Error:</strong> {{ error }}</div>
+{% elif "not logged in" in get_flashed_messages() %}
+<div class="alert alert-danger"><strong>Error: </strong> You need to be logged in to access that page!</div>
+{% else %}
+<div class="alert alert-info"><strong>Welcome!</strong> Please log in below:</div>
+{% endif %}
+<form action="" method="post" role="form">
+	<input type="text" class="form-control" name="username" placeholder="Username" value="{{ request.form.username }}" required><br>
+	<input type="password" class="form-control" name="password" placeholder="Password" value="{{ request.form.password }}" required><br>
+	<input type="submit" class="form-control btn btn-info" value="Log In">
+</form><br>
+{% endblock %}

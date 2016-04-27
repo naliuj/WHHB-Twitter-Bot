@@ -1,27 +1,7 @@
 {% extends "base.html" %}
 {% block body %}
-<div id="navigation">
-    <nav class="navbar navbar-default">
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Schedule</a></li>
-            <li><a href="/add/">Add Show</a></li>
-            <li><a href="/manual-tweet/">Manual Tweet</a></li>
-        </ul>
-    </nav>
-</div>
-<div class="alert alert-info"><strong>Welcome!</strong> View the current shows below, or remove a show using the dropdown list below the table!</div>
-<div class="row">
-    {{ shows }}
-</div>
-<div class="row">
-<form role="form" action="/remove/" method="post">
-    <select class="form-control" name="slot">
-        <option value="None"></option>
-        {% for slot in slots %}
-        <option class="form-control" value="{{ slot[1] }}`{{ slot[2] }}`{{ slot[3] }}">{{ slot[0] }}, {{ slot[1] }} {{ slot[2] }} to {{ slot[3] }} </option>
-        {% endfor %}
-    </select><br>
-    <input class="form-control btn btn-danger" type="submit" value="Remove Selected Show">
-</form><br>
-</div>
+<p>Click <a href="/logout/">here</a> to log out.</p>
+{% for message in get_flashed_messages() %}
+{{ message }}
+{% endfor %}
 {% endblock %}

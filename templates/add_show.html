@@ -3,14 +3,14 @@
 <div id="navigation">
     <nav class="navbar navbar-default">
         <ul class="nav navbar-nav">
-            <li><a href="/">Schedule</a></li>
+            <li><a href="/schedule/">Schedule</a></li>
             <li class="active"><a href="/add/">Add Show</a></li>
             <li><a href="/manual-tweet/">Manual Tweet</a></li>
         </ul>
     </nav>
 </div>
 {% if alert == None %}
-<div class="alert alert-info"><strong>Welcome!</strong> Add a show using the form below.</div>
+<div class="alert alert-info">Add a show using the form below.</div>
 {% elif alert == "success" %}
 <div class="alert alert-success"><strong>Success!</strong> Show added successfully!</div>
 {% elif alert == "taken" %}
@@ -20,11 +20,11 @@
 <form action="/add/" method="post" role="form">
     	<div class="col-md-6">
     		<label for="show-name">Show Name:</label>
-    		<input class="form-control" id="show-name" name="show-name" type="text"></input><br>
+    		<input class="form-control" id="show-name" name="show-name" type="text" required></input><br>
     	</div>
     	<div class="col-md-6">
     		<label for="show-day">Show Day:</label>
-    		<select class="form-control" id="show-day" name="show-day">
+    		<select class="form-control" id="show-day" name="show-day" required>
     			<option></option>
     			<option value="Monday">Monday</option>
     			<option value="Tuesday">Tuesday</option>
@@ -35,7 +35,7 @@
     	</div>
     	<div class="col-md-6">
     		<label for="show-start">Start Time:</label>
-    	    <select class="form-control" name="show-start" id="show-start">
+    	    <select class="form-control" name="show-start" id="show-start" required>
     	    	<option></option>
                 <option value="2:00">2:00</option>
                 <option value="4:00">4:00</option>
@@ -44,7 +44,7 @@
     	</div>
     	<div class="col-md-6">
     		<label for="show-end">End Time:</label>
-    	    <select class="form-control" name="show-end" id="show-end">
+    	    <select class="form-control" name="show-end" id="show-end" required>
     	    	<option></option>
                 <option value="4:00">4:00</option>
                 <option value="6:00">6:00</option>
@@ -53,7 +53,7 @@
     	</div>
     	<div class="col-md-3">
     		<label for="host-1">Host 1:</label>
-    		<input class="form-control" id="host-1" name="host-1" type="text"></input><br>
+    		<input class="form-control" id="host-1" name="host-1" type="text" required></input><br>
     	</div>
     	<div class="col-md-3">
     		<label for="host-2">Host 2:</label>
