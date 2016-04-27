@@ -1,12 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
 from functools import wraps
-from make_table import get_table
-import db
 import tweepy
-from twitter_auth import authenticate
+from flask import Flask, render_template, request, redirect, url_for, session, flash
+import db
 from CONFIG import SECRET_KEY
-import login_db
-
+from make_table import get_table
+from twitter_auth import authenticate
+from user_management import login_db
 
 app = Flask(__name__)
 
@@ -17,7 +16,7 @@ app.secret_key = SECRET_KEY
 def login_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):
-        if "logged_in" in session:
+        if "username" in session:
             return f(*args, **kwargs)
         else:
             flash("not logged in")
@@ -29,7 +28,7 @@ def login_required(f):
 def no_login(f):
     @wraps(f)
     def wrap(*args, **kwargs):
-        if "logged_in" not in session:
+        if "username" not in session:
             return f(*args, **kwargs)
         else:
             flash("You are already logged in.")
@@ -51,7 +50,6 @@ def login():
     error = None
     if request.method == "POST":
         if login_db.verify(request.form["username"], request.form["password"]):
-            session["logged_in"] = True
             session["username"] = request.form["username"]
             flash("You have been logged in!")
             return redirect(url_for("index"))
@@ -63,7 +61,7 @@ def login():
 @app.route("/logout/")
 @login_required
 def logout():
-    session.pop("logged_in", None)
+    session.pop("username", None)
     flash("logged out")
     return redirect(url_for("login"))
 
@@ -123,8 +121,7 @@ def send_tweet():
 
 
 @app.errorhandler(404)
-def page_note_found(e):
-    print(e)
+def page_not_found(e):
     return render_template("error.html", subheading=e, error=e, page="error"), 404
 
 if __name__ == "__main__":
