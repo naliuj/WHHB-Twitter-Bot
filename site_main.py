@@ -1,50 +1,15 @@
-from functools import wraps
-import tweepy
 from flask import Flask, render_template, request, redirect, url_for, session, flash
+import tweepy
 import db
 from CONFIG import SECRET_KEY
 from make_table import get_table
 from twitter_auth import authenticate
 from user_management import login_db
+from user_management.page_restrictions import no_login, login_required, admin_required
 
 app = Flask(__name__)
 
 app.secret_key = SECRET_KEY
-
-
-# Decorator to require log in
-def login_required(f):
-    @wraps(f)
-    def wrap(*args, **kwargs):
-        if "username" in session:
-            return f(*args, **kwargs)
-        else:
-            flash("not logged in")
-            return redirect(url_for("login"))
-    return wrap
-
-
-# Decorator to lock log in page after logged in
-def no_login(f):
-    @wraps(f)
-    def wrap(*args, **kwargs):
-        if "username" not in session:
-            return f(*args, **kwargs)
-        else:
-            flash("You are already logged in.")
-            return redirect(url_for("index"))
-    return wrap
-
-
-# Decorator to allow only users "julian" and "admin" to certain pages
-def admin_required(f):
-    @wraps(f)
-    def wrap(*args, **kwargs):
-        if session["username"] == ("julian" or "admin"):
-            return f(*args, **kwargs)
-        else:
-            return render_template("no_permission.html", subheading="", page="exempt")
-    return wrap
 
 
 @app.route("/")
