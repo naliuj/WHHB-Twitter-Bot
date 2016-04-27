@@ -32,14 +32,17 @@ def no_login(f):
         if "logged_in" not in session:
             return f(*args, **kwargs)
         else:
-            flash("logged in")
-            return redirect(url_for("schedule"))
+            flash("You are already logged in.")
+            return redirect(url_for("index"))
     return wrap
 
 
 @app.route("/")
 def index():
-    return redirect(url_for("login"))
+    if "logged_in" in session:
+        return render_template("index.html", subheading="Home Page", page="home")
+    else:
+        return redirect(url_for("login"))
 
 
 @app.route("/login/", methods=["GET", "POST"])
@@ -47,12 +50,13 @@ def index():
 def login():
     error = None
     if request.method == "POST":
-        if request.form["username"] != "admin" or request.form["password"] != "admin":
-            error = "Invalid credentials. Please try again."
-        else:
+        if login_db.verify(request.form["username"], request.form["password"]):
             session["logged_in"] = True
-            flash("You were just logged in!")
+            session["username"] = request.form["username"]
+            flash("You have been logged in!")
             return redirect(url_for("index"))
+        else:
+            error = "Invalid Credentials: Please try again."
     return render_template("login.html", subheading="Log In", error=error, page="login")
 
 
@@ -60,7 +64,8 @@ def login():
 @login_required
 def logout():
     session.pop("logged_in", None)
-    return redirect(url_for("index"))
+    flash("logged out")
+    return redirect(url_for("login"))
 
 
 @app.route("/schedule/")

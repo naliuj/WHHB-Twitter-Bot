@@ -17,8 +17,7 @@ def add(info):
     c.execute("SELECT * FROM users WHERE username=?", (info[0],))
     data = c.fetchone()
     if data is None:
-        hashed_pass = sha256_crypt.encrypt(info[1])
-        c.execute("INSERT INTO users VALUES (?,?)", [info[0], hashed_pass])
+        c.execute("INSERT INTO users VALUES (?,?)", [info[0], sha256_crypt.encrypt(info[1])])
         commit(conn)
         disconnect(conn)
         return "success"
@@ -32,14 +31,12 @@ def verify(username, password):
     c.execute("SELECT * FROM users")
     users = c.fetchall()
     for user in users:
-        pass_match = sha256_crypt.verify(password, user[1])
-        if pass_match is False or user[0] is not username:
-            print("Failed")
+        if sha256_crypt.verify(password, user[1]) and user[0] == username:
             disconnect(conn)
+            return True
         else:
-            print("Success")
             disconnect(conn)
-            break
+    return False
 
 
 # Removes a user
