@@ -3,7 +3,7 @@ import sqlite3
 
 # Connect to database
 def connect():
-    conn = sqlite3.connect('shows.db')
+    conn = sqlite3.connect('data.db')
     c = conn.cursor()
     return conn, c
 
@@ -58,7 +58,7 @@ def read():
 # Remove a single value from the database
 def remove(slot):
     conn, c = connect()
-    c.execute("DELETE FROM shows WHERE day=? AND start=? and end=?", (slot[0], slot[1], slot[2]))
+    c.execute("DELETE FROM shows WHERE day=? AND start=? AND end=?", (slot[0], slot[1], slot[2]))
     commit(conn)
     disconnect(conn)
 

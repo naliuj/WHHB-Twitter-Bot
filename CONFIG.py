@@ -1,0 +1,9 @@
+# Twitter Authentication Info
+twitter_auth = {
+    'CONSUMER_KEY': 'tGVkLMK1FJEzRMULmpYBNBnLr',
+    'CONSUMER_SECRET': 'bjSuE2P5qaYlZsq21FfNtlLR14Z0Isfc8jZfSNk9X3KRaRcXXQ',
+    'ACCESS_TOKEN': '721453272737976321-AHAto3gEh0BUiBeAfj13GEXLM9UdMRr',
+    'ACCESS_TOKEN_SECRET': 'RYePBD79dt6JgAkZy0P64mNT4Bi51apswDqsPxYly30As'
+}
+# Website Info
+SECRET_KEY = "yHT.L_4)wqhF?G:="
