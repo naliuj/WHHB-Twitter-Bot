@@ -36,6 +36,17 @@ def no_login(f):
     return wrap
 
 
+# Decorator to allow only users "julian" and "admin" to certain pages
+def admin_required(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if session["username"] == ("julian" or "admin"):
+            return f(*args, **kwargs)
+        else:
+            return render_template("no_permission.html", subheading="", page="exempt")
+    return wrap
+
+
 @app.route("/")
 def index():
     if "logged_in" in session:
@@ -55,7 +66,7 @@ def login():
             return redirect(url_for("index"))
         else:
             error = "Invalid Credentials: Please try again."
-    return render_template("login.html", subheading="Log In", error=error, page="login")
+    return render_template("login.html", subheading="Log In", error=error, page="exempt")
 
 
 @app.route("/logout/")
@@ -100,6 +111,13 @@ def remove_show():
     except IndexError:
         pass
     return redirect(url_for("schedule"))
+
+
+@app.route("/user-management/")
+@login_required
+@admin_required
+def users():
+    return "Hello"
 
 
 @app.route("/manual-tweet/")

@@ -16,13 +16,9 @@
 <body>
 <div class="container">
 <div class="row page-header">
-    <h1 class="col-md-10">WHHB TweetBot<span style="color: #BDBDBD; font-size: 20px;"> {{ subheading }}</span></h1>
-    <div class=""></div>
-    {% if page != "login" %}
-    <ul class="pager" style="margin: 0; padding: 0"><li class="next"><a href="/logout/">Log Out</a></li></ul>
-    {% endif %}
+    <h1 class="col-md-10"><a href="/">WHHB TweetBot</a><span style="color: #BDBDBD; font-size: 20px;"> {{ subheading }}</span></h1>
 </div>
-{% if page != "login" %}
+{% if page != "exempt" %}
 <div id="navigation">
     <nav class="navbar navbar-default">
         <ul class="nav navbar-nav">
@@ -31,9 +27,27 @@
             <li {% if page == "add" %}class="active"{% else %}{% endif %}><a href="/add/">Add Show</a></li>
             <li {% if page == "manual-tweet" %}class="active"{% else %}{% endif %}><a href="/manual-tweet/">Manual Tweet</a></li>
             {% if session["username"] == "julian" or session["username"] == "admin" %}
-            <li {% if page == "users" %}class="active"{% else %}{% endif %}><a href="/user-management/">Users</a></li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin Tools<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li {% if page == "user-management" %}class="active"{% else %}{% endif %}><a href="/user-management/">User Management</a></li>
+                </ul>
+            </li>
+            {% endif %}
+            {% if session["username"] == "julian" %}
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Dev Tools<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li></li>
+                </ul>
+            </li>
             {% endif %}
         </ul>
+        <div class="container-fluid">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/logout/"><span class="glyphicon glyphicon-log-out"></span></a></li>
+            </ul>
+        </div>
     </nav>
 </div>
 {% endif %}
