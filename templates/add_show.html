@@ -1,14 +1,5 @@
 {% extends "base.html" %}
 {% block body %}
-<div id="navigation">
-    <nav class="navbar navbar-default">
-        <ul class="nav navbar-nav">
-            <li><a href="/schedule/">Schedule</a></li>
-            <li class="active"><a href="/add/">Add Show</a></li>
-            <li><a href="/manual-tweet/">Manual Tweet</a></li>
-        </ul>
-    </nav>
-</div>
 {% if alert == None %}
 <div class="alert alert-info">Add a show using the form below.</div>
 {% elif alert == "success" %}

@@ -1,14 +1,5 @@
 {% extends "base.html" %}
 {% block body %}
-<div id="navigation">
-    <nav class="navbar navbar-default">
-        <ul class="nav navbar-nav">
-            <li><a href="/schedule/">Schedule</a></li>
-            <li><a href="/add/">Add Show</a></li>
-            <li class="active"><a href="/manual-tweet/">Manual Tweet</a></li>
-        </ul>
-    </nav>
-</div>
 {% if status == None %}
 <div class="alert alert-info">Send a tweet right from this site:</div>
 {% elif status == "success" %}
