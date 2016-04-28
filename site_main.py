@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
 import tweepy
+from flask import Flask, render_template, request, redirect, url_for, session, flash
+
 import db
 from CONFIG import SECRET_KEY
+from bot.twitter_auth import authenticate
 from make_table import get_table
-from twitter_auth import authenticate
 from user_management import login_db
 from user_management.page_restrictions import no_login, login_required, admin_required
 

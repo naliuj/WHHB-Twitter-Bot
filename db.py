@@ -3,7 +3,7 @@ import sqlite3
 
 # Connect to database
 def connect():
-    conn = sqlite3.connect('data.db')
+    conn = sqlite3.connect(r'C:\Users\Julian\Documents\GitHub\WHHB-Twitter-Bot\data.db')
     c = conn.cursor()
     return conn, c
 
@@ -53,6 +53,23 @@ def read():
     c.execute("SELECT * FROM shows")
     return c.fetchall()
     disconnect(conn)
+
+
+# Returns the show data for a certain timeslot
+def show(day, time):
+    conn, c = connect()
+    if time > 12:
+        time -= 12
+    elif time == 0:
+        time = 12
+    c.execute("SELECT * FROM shows WHERE day=? AND start=?", (day, "{}:00".format(time)))
+    data = c.fetchone()
+    if data is None:
+        disconnect(conn)
+        return None
+    else:
+        disconnect(conn)
+        return data
 
 
 # Remove a single value from the database
