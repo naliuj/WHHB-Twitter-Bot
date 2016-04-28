@@ -20,4 +20,6 @@ def get_show(day, time):
         twit = authenticate()
         twit.update_status(choice(show_templates))
 
-get_show(today.now())
+weekday, hour = today.now()
+
+get_show(weekday, hour)
