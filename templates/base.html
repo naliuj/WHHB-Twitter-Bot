@@ -45,6 +45,7 @@
         </ul>
         <div class="container-fluid">
             <ul class="nav navbar-nav navbar-right">
+                <li {% if page == "settings" %}class="active"{% else %}{% endif %}><a href="/settings/"><span class="glyphicon glyphicon-cog"></span></a></li>
                 <li><a href="/logout/"><span class="glyphicon glyphicon-log-out"></span></a></li>
             </ul>
         </div>

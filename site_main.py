@@ -103,9 +103,21 @@ def send_tweet():
         return render_template("manual_tweet.html", subheading="Send Tweet Manually", status="failed", page="manual-tweet")
 
 
+@app.route("/settings/", methods=["GET", "POST"])
+@login_required
+def settings():
+    if request.method == "POST":
+        if login_db.verify(session["username"], request.form["old_pass"]):
+            login_db.update(session["username"], request.form["new_pass"])
+            flash("pass-updated")
+        else:
+            flash("bad-old")
+    return render_template("settings.html", subheading="Account Settings", message=None, page="settings")
+
+
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template("error.html", subheading=e, error=e, page="error"), 404
+    return render_template("error.html", subheading="", error=e, page="exempt"), 404
 
 if __name__ == "__main__":
     app.run(debug=True)

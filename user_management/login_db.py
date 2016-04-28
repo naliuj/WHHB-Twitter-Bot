@@ -40,7 +40,7 @@ def verify(username, password):
     return False
 
 
-# Update the password for a user
+# Update the password for a user without needing old password
 def update(username, new_pass):
     conn, c = connect()
     c.execute("UPDATE users SET password=? WHERE username=?", (sha256_crypt.encrypt(new_pass), username))
