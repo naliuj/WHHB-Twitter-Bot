@@ -27,6 +27,7 @@ def login():
     error = None
     if request.method == "POST":
         if login_db.verify(request.form["username"], request.form["password"]):
+            session["logged_in"] = True
             session["username"] = request.form["username"]
             flash("You have been logged in!")
             return redirect(url_for("index"))
@@ -38,6 +39,7 @@ def login():
 @app.route("/logout/")
 @login_required
 def logout():
+    session.pop("logged_in", None)
     session.pop("username", None)
     flash("logged out")
     return redirect(url_for("login"))
