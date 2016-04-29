@@ -6,6 +6,7 @@ from bot.twitter_auth import authenticate
 from make_table import get_table
 from user_management import login_db
 from user_management.page_restrictions import no_login, login_required, admin_required
+from user_management.table import get_table as user_table
 
 app = Flask(__name__)
 
@@ -82,11 +83,22 @@ def remove_show():
     return redirect(url_for("schedule"))
 
 
-@app.route("/user-management/")
+@app.route("/user-management/", methods=["GET", "POST"])
 @login_required
 @admin_required
 def users():
-    return "Hello"
+    if request.method == "POST":
+        login_db.add([request.form["username"], request.form["password"], request.form["type"]])
+    return render_template("user_management.html", subheading="User Management", table=user_table(),
+                           accounts=login_db.read(), page="user-management")
+
+
+@app.route("/user-management/delete/<username>/")
+@login_required
+@admin_required
+def delete_user(username):
+    login_db.remove(username)
+    return redirect("users")
 
 
 @app.route("/manual-tweet/")
@@ -105,7 +117,7 @@ def send_tweet():
         return render_template("manual_tweet.html", subheading="Send Tweet Manually", status="success",
                                page="manual-tweet")
     except tweepy.error.TweepError as e:
-        if session["username"] == "julian":
+        if session["type"] == "dev":
             return render_template("manual_tweet.html", subheading="Send Tweet Manually", status="error", error=e,
                                    page="manual-tweet")
         else:

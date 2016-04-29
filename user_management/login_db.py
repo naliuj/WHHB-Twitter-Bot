@@ -57,6 +57,15 @@ def get_type(username):
     return user[2]
 
 
+# Returns all the users in the table
+def read():
+    conn, c = connect()
+    c.execute("SELECT * FROM users")
+    users = c.fetchall()
+    disconnect(conn)
+    return users
+
+
 # Removes a user
 def remove(user):
     conn, c = connect()
