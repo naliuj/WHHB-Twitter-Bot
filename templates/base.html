@@ -26,7 +26,7 @@
             <li {% if page == "schedule" %}class="active"{% else %}{% endif %}><a href="/schedule/">Schedule</a></li>
             <li {% if page == "add" %}class="active"{% else %}{% endif %}><a href="/add/">Add Show</a></li>
             <li {% if page == "manual-tweet" %}class="active"{% else %}{% endif %}><a href="/manual-tweet/">Manual Tweet</a></li>
-            {% if session["username"] == "julian" or session["username"] == "admin" %}
+            {% if session["type"] == "dev" or session["type"] == "admin" %}
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin Tools<span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -34,7 +34,7 @@
                 </ul>
             </li>
             {% endif %}
-            {% if session["username"] == "julian" %}
+            {% if session["type"] == "dev" %}
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Dev Tools<span class="caret"></span></a>
                 <ul class="dropdown-menu">

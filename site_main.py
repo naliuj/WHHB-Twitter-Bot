@@ -28,6 +28,7 @@ def login():
         if login_db.verify(request.form["username"], request.form["password"]):
             session["logged_in"] = True
             session["username"] = request.form["username"]
+            session["type"] = login_db.get_type(request.form["username"])
             flash("You have been logged in!")
             return redirect(url_for("index"))
         else:
@@ -40,6 +41,7 @@ def login():
 def logout():
     session.pop("logged_in", None)
     session.pop("username", None)
+    session.pop("type", None)
     flash("logged out")
     return redirect(url_for("login"))
 
@@ -108,7 +110,7 @@ def send_tweet():
                                    page="manual-tweet")
         else:
             return render_template("manual_tweet.html", subheading="Send Tweet Manually", status="failed",
-                               page="manual-tweet")
+                                   page="manual-tweet")
 
 
 @app.route("/settings/", methods=["GET", "POST"])

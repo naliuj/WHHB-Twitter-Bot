@@ -5,7 +5,7 @@ from passlib.hash import sha256_crypt
 # Initialize log in information table
 def init():
     conn, c = connect()
-    c.execute("CREATE TABLE users (username text, password text)")
+    c.execute("CREATE TABLE users (username TEXT, password TEXT, role TEXT)")
     commit(conn)
     disconnect(conn)
 
@@ -16,7 +16,7 @@ def add(info):
     c.execute("SELECT * FROM users WHERE username=?", (info[0],))
     data = c.fetchone()
     if data is None:
-        c.execute("INSERT INTO users VALUES (?,?)", [info[0], sha256_crypt.encrypt(info[1])])
+        c.execute("INSERT INTO users VALUES (?,?,?)", [info[0], sha256_crypt.encrypt(info[1]), info[2]])
         commit(conn)
         disconnect(conn)
         return "success"
@@ -46,6 +46,15 @@ def update(username, new_pass):
     c.execute("UPDATE users SET password=? WHERE username=?", (sha256_crypt.encrypt(new_pass), username))
     commit(conn)
     disconnect(conn)
+
+
+# Gets the account type
+def get_type(username):
+    conn, c = connect()
+    c.execute("SELECT * FROM users WHERE username=?", (username,))
+    user = c.fetchone()
+    disconnect(conn)
+    return user[2]
 
 
 # Removes a user
