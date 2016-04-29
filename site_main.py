@@ -1,6 +1,5 @@
 import tweepy
 from flask import Flask, render_template, request, redirect, url_for, session, flash
-
 import db
 from CONFIG import SECRET_KEY
 from bot.twitter_auth import authenticate
@@ -101,9 +100,15 @@ def send_tweet():
     tweet = request.form["message"]
     try:
         twit.update_status(tweet)
-        return render_template("manual_tweet.html", subheading="Send Tweet Manually", status="success", page="manual-tweet")
-    except tweepy.error.TweepError:
-        return render_template("manual_tweet.html", subheading="Send Tweet Manually", status="failed", page="manual-tweet")
+        return render_template("manual_tweet.html", subheading="Send Tweet Manually", status="success",
+                               page="manual-tweet")
+    except tweepy.error.TweepError as e:
+        if session["username"] == "julian":
+            return render_template("manual_tweet.html", subheading="Send Tweet Manually", status="error", error=e,
+                                   page="manual-tweet")
+        else:
+            return render_template("manual_tweet.html", subheading="Send Tweet Manually", status="failed",
+                               page="manual-tweet")
 
 
 @app.route("/settings/", methods=["GET", "POST"])

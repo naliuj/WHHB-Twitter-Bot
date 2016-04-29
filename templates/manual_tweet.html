@@ -6,6 +6,8 @@
 <div class="alert alert-success"><strong>Success!</strong> Tweet sent!</div>
 {% elif status == "failed" %}
 <div class="alert alert-danger"><strong>Error!</strong> Sending failed!</div>
+{% elif status == "error" %}
+<div class="alert alert-danger"><strong>Error:</strong> {{ error }}</div>
 {% endif %}
 <form role="form" action="/manual-tweet/" method="post">
 	<div class="form-group">
