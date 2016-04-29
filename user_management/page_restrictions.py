@@ -30,7 +30,7 @@ def no_login(f):
 def admin_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):
-        if session["username"] == ("julian" or "admin"):
+        if session["username"] == "julian" or session["username"] == "admin":
             return f(*args, **kwargs)
         else:
             return render_template("no_permission.html", subheading="", page="exempt")

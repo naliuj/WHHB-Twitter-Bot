@@ -50,8 +50,12 @@ def add(info):
 # Read information from that database
 def read():
     conn, c = connect()
-    c.execute("SELECT * FROM shows")
-    return c.fetchall()
+    days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+    shows = []
+    for day in days:
+        c.execute("SELECT * FROM shows WHERE day=? ORDER BY start", (day,))
+        shows += c.fetchall()
+    return shows
     disconnect(conn)
 
 
