@@ -125,16 +125,22 @@ def send_tweet():
                                    page="manual-tweet")
 
 
-@app.route("/settings/", methods=["GET", "POST"])
+@app.route("/settings/")
 @login_required
 def settings():
+    return render_template("wip.html", subheading="", page="exempt")
+
+
+@app.route("/settings/change-password/", methods=["GET", "POST"])
+@login_required
+def change_password():
     if request.method == "POST":
         if login_db.verify(session["username"], request.form["old_pass"]):
             login_db.update(session["username"], request.form["new_pass"])
             flash("pass-updated")
         else:
             flash("bad-old")
-    return render_template("settings.html", subheading="Account Settings", message=None, page="settings")
+    return render_template("change_pass.html", subheading="Account Settings", message=None, page="settings")
 
 
 @app.errorhandler(404)
