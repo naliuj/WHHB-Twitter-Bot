@@ -1,18 +1,7 @@
 {% extends "base.html" %}
 {% block body %}
-<div class="alert alert-info">View the current shows below, or remove a show using the dropdown list below the table!</div>
+<div class="alert alert-info">View the current shows below, or remove a show by clicking on it!</div>
 <div class="row">
     {{ shows }}
-</div>
-<div class="row">
-<form role="form" action="/remove/" method="post">
-    <select class="form-control" name="slot" required>
-        <option value="None"></option>
-        {% for slot in slots %}
-        <option class="form-control" value="{{ slot[1] }}`{{ slot[2] }}`{{ slot[3] }}">{{ slot[0] }}, {{ slot[1] }} {{ slot[2] }} to {{ slot[3] }} </option>
-        {% endfor %}
-    </select><br>
-    <input class="form-control btn btn-danger" type="submit" value="Remove Selected Show">
-</form><br>
 </div>
 {% endblock %}

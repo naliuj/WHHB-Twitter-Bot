@@ -72,12 +72,11 @@ def add_show():
     return render_template("add_show.html", alert=None, subheading="Adding New Show", page="add")
 
 
-@app.route("/remove/", methods=["POST"])
+@app.route("/remove/<day>/<start>/<end>/")
 @login_required
-def remove_show():
-    show_info = request.form["slot"]
+def remove_show(day, start, end):
     try:
-        db.remove(show_info.split("`"))
+        db.remove([day, start, end])
     except IndexError:
         pass
     return redirect(url_for("schedule"))

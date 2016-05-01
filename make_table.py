@@ -20,10 +20,9 @@ class ItemTable(Table):
     end = Col('End Time')
     hosts = Col('Host(s)')
 
-    """
     def tr_format(self, item):
-        return '<tr>{}</tr>'
-    """
+        return '<tr onclick="window.location.href = \'/remove/{}/{}/{}\'">{}</tr>'.format(item.day, item.start,
+                                                                                          item.end, '{}')
 
 
 # Yields the name of each host
