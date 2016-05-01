@@ -15,6 +15,9 @@ class ItemTable(Table):
     username = Col('Username')
     role = Col('Account Type')
 
+    def tr_format(self, item):
+        return '<tr onclick="window.location.href=\'/user-management/user/{}/\'">{}</tr>'.format(item.username, '{}')
+
 
 def get_table():
     items = read()

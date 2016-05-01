@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block body %}
+	{% if user_exists == True %}
+		<div class="page-header">
+			<h1>{{ username }}</h1>
+		</div>
+		<div class="col-md-12">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Username</th>
+						<th>Account Type</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{{ username }}</td>
+						<td>{{ type }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<button class="btn btn-danger" onclick="verify()">Delete "{{ username }}"</button>
+	{% else %}
+		<h1>Can't find user: "{{ username }}"</h1>
+	{% endif %}
+	<script type="text/javascript">
+		function verify() {
+			if ("{{ type }}" == "dev") {
+				alert('You are not allowed to delete that type of user here. Check the home page for more information.');
+			} else {
+				window.location.href="/user-management/user/delete/{{ username }}/";
+			}
+		}
+	</script>
+{% endblock %}

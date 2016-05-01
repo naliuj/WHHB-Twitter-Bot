@@ -93,12 +93,25 @@ def users():
                            accounts=login_db.read(), page="user-management")
 
 
-@app.route("/user-management/delete/<username>/")
+@app.route("/user-management/user/<username>/")
+@login_required
+@admin_required
+def user_profile(username):
+    for row in login_db.read():
+        if row[0] == username:
+            return render_template("user_profile.html", subheading="Viewing {}".format(username), username=username,
+                                   type=row[2], user_exists=True, page="user-profile")
+    else:
+        return render_template("user_profile.html", subheading="Not Found", username=username, type=None,
+                               user_exists=False, page="user-profile")
+
+
+@app.route("/user-management/user/delete/<username>/")
 @login_required
 @admin_required
 def delete_user(username):
     login_db.remove(username)
-    return redirect("users")
+    return redirect(url_for("users"))
 
 
 @app.route("/manual-tweet/")
