@@ -137,13 +137,7 @@ def send_tweet():
                                    page="manual-tweet")
 
 
-@app.route("/settings/")
-@login_required
-def settings():
-    return render_template("wip.html", subheading="", page="exempt")
-
-
-@app.route("/settings/change-password/", methods=["GET", "POST"])
+@app.route("/settings/", methods=["GET", "POST"])
 @login_required
 def change_password():
     if request.method == "POST":
