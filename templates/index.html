@@ -3,4 +3,54 @@
 {% for message in get_flashed_messages() %}
 <div class="alert alert-info">{{ message }}</div>
 {% endfor %}
+<div class="panel-group" id="intro">
+	<div class="panel panel-info">
+		<div class="panel-heading">Welcome!</div>
+		<div class="panel-body">
+			Welcome to the control panel for the radio-club Twitter bot!<br><br>
+			On this page I will go over what all the pages on this site do. I will be writing a much more in depth page
+			about the actual code behind this project in the event that something breaks and will need repair.<br><br>
+			This page is aimed more for the general users of the application.
+		</div>
+	</div>
+</div>
+<div class="panel-group" id="account-types">
+	<div class="panel panel-info">
+		<div class="panel-heading">User Types</div>
+		<div class="panel-body">
+			There are three distinct types of users that can log onto this site. The first one is simply called "user", and is
+			an account tier meant for student general managers of the radio club. A standard user can view the schedule, remove
+			shows from the schedule, send a manual tweet on the "Manual Tweet", and change their password.
+			page of this site.<br><br>
+			The next tier of account is called "admin". The admin level is meant for faculty advisors of the radio club. In
+			addition to everything a normal user can do, the admin can access a user account management system which can be
+			accessed through the "Admin Tools" dropdown on the navigation bar. The user management page allows admins to
+			add and remove "user" and "admin" tier accounts.<br><br>
+			The last type of account is a "dev" account. Dev accounts are meant for people who are working on the application's
+			source code. This account tier can do everything that the past two can, but error messages will be more specific
+			so debugging the problem is easier. Dev accounts can not be deleted from the website. They need to be deleted using
+			the Python console. 
+		</div>
+	</div>
+</div>
+<div class="panel-group" id="schedule-and-add-show">
+	<div class="panel panel-info">
+		<div class="panel-heading">Schedule and Add Show</div>
+		<div class="panel-body">
+			The schedule page is pretty straight forward; it displays the currently occupied timeslots. Click a row in the
+			table, and it will remove that show from the database.<br><br>
+			The add show page is also pretty straight forward. Type in the information for the specified show, and it will
+			add the show to the database. If your chosen time slot is already occupied it will alert you.
+		</div>
+	</div>
+</div>
+<div class="panel-group" id="manual-tweet">
+	<div class="panel panel-info">
+		<div class="panel-heading">Manual Tweet</div>
+		<div class="panel-body">
+			The manual tweet page will allow you to send a tweet as the WHHB Twitter account without leaving the site. This
+			can be helpful if you update the schedule and would like to inform the public about the changes.
+		</div>
+	</div>
+</div>
 {% endblock %}
