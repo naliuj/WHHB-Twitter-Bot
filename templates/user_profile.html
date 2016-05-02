@@ -27,7 +27,7 @@
 	<script type="text/javascript">
 		function verify() {
 			if ("{{ type }}" == "dev") {
-				alert('You are not allowed to delete that type of user here. Check the home page for more information.');
+				alert('You are not allowed to delete that type of user here. Check the "User Types" section on the homepage for more information.');
 			} else {
 				window.location.href="/user-management/user/delete/{{ username }}/";
 			}
