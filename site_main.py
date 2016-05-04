@@ -10,6 +10,7 @@ from user_management.table import get_table as user_table
 from forms.login import LoginForm
 from forms.add_show import AddShowForm
 from forms.add_user import AddUserForm
+from forms.manual_tweet import ManualTweetForm
 
 app = Flask(__name__)
 
@@ -121,28 +122,26 @@ def delete_user(username):
     return redirect(url_for("users"))
 
 
-@app.route("/manual-tweet/")
+@app.route("/manual-tweet/", methods=["GET", "POST"])
 @login_required
 def manual_tweet_page():
-    return render_template("manual_tweet.html", subheading="Send Tweet Manually", status=None, page="manual-tweet")
-
-
-@app.route("/manual-tweet/", methods=["POST"])
-@login_required
-def send_tweet():
-    twit = authenticate()
-    tweet = request.form["message"]
-    try:
-        twit.update_status(tweet)
-        return render_template("manual_tweet.html", subheading="Send Tweet Manually", status="success",
-                               page="manual-tweet")
-    except tweepy.error.TweepError as e:
-        if session["type"] == "dev":
-            return render_template("manual_tweet.html", subheading="Send Tweet Manually", status="error", error=e,
-                                   page="manual-tweet")
-        else:
-            return render_template("manual_tweet.html", subheading="Send Tweet Manually", status="failed",
-                                   page="manual-tweet")
+    tweetForm = ManualTweetForm()
+    if request.method == "POST" and tweetForm.validate():
+        twit = authenticate()
+        tweet = tweetForm.tweet.data
+        try:
+            twit.update_status(tweet)
+            return render_template("manual_tweet.html", subheading="Send Tweet Manually", status="success",
+                                   tweetForm=tweetForm, page="manual-tweet")
+        except tweepy.error.TweepError as e:
+            if session["type"] == "dev":
+                return render_template("manual_tweet.html", subheading="Send Tweet Manually", status="error", error=e,
+                                       tweetForm=tweetForm, page="manual-tweet")
+            else:
+                return render_template("manual_tweet.html", subheading="Send Tweet Manually", status="failed",
+                                       tweetForm=tweetForm, page="manual-tweet")
+    return render_template("manual_tweet.html", subheading="Send Tweet Manually", status=None, tweetForm=tweetForm,
+                           page="manual-tweet")
 
 
 @app.route("/settings/", methods=["GET", "POST"])
