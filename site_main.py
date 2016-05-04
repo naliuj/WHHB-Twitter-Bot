@@ -8,6 +8,7 @@ from user_management import login_db
 from user_management.page_restrictions import no_login, login_required, admin_required
 from user_management.table import get_table as user_table
 from forms.login import LoginForm
+from forms.add_show import AddShow
 
 app = Flask(__name__)
 
@@ -58,20 +59,22 @@ def schedule():
 @app.route("/add/", methods=["GET", "POST"])
 @login_required
 def add_show():
-    if request.method == "POST":
-        show_info = [request.form["show-name"],
-                     request.form["show-day"],
-                     request.form["show-start"],
-                     request.form["show-end"],
-                     request.form["host-1"],
-                     request.form["host-2"],
-                     request.form["host-3"],
-                     request.form["host-4"],
+    showForm = AddShow()
+    if request.method == "POST" and showForm.validate():
+        show_info = [showForm.showName.data,
+                     showForm.showDay.data,
+                     showForm.showStart.data,
+                     showForm.showEnd.data,
+                     showForm.host1.data,
+                     showForm.host2.data,
+                     showForm.host3.data,
+                     showForm.host4.data,
                      ''
                      ]
         db.add(show_info)
+        return redirect(url_for("add_show"))
 
-    return render_template("add_show.html", alert=None, subheading="Adding New Show", page="add")
+    return render_template("add_show.html", alert=None, showForm=showForm, subheading="Adding New Show", page="add")
 
 
 @app.route("/remove/<day>/<start>/<end>/")

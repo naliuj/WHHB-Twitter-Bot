@@ -9,58 +9,42 @@
 {% endif %}
 <div class="row">
 <form action="/add/" method="post" role="form">
-    	<div class="col-md-6">
-    		<label for="show-name">Show Name:</label>
-    		<input class="form-control" id="show-name" name="show-name" type="text" required></input><br>
-    	</div>
-    	<div class="col-md-6">
-    		<label for="show-day">Show Day:</label>
-    		<select class="form-control" id="show-day" name="show-day" required>
-    			<option></option>
-    			<option value="Monday">Monday</option>
-    			<option value="Tuesday">Tuesday</option>
-    			<option value="Wednesday">Wednesday</option>
-    			<option value="Thursday">Thursday</option>
-    			<option value="Friday">Friday</option>
-    		</select><br>
-    	</div>
-    	<div class="col-md-6">
-    		<label for="show-start">Start Time:</label>
-    	    <select class="form-control" name="show-start" id="show-start" required>
-    	    	<option></option>
-                <option value="2:00">2:00</option>
-                <option value="4:00">4:00</option>
-                <option value="6:00">6:00</option>
-            </select><br>
-    	</div>
-    	<div class="col-md-6">
-    		<label for="show-end">End Time:</label>
-    	    <select class="form-control" name="show-end" id="show-end" required>
-    	    	<option></option>
-                <option value="4:00">4:00</option>
-                <option value="6:00">6:00</option>
-                <option value="8:00">8:00</option>
-            </select><br>
-    	</div>
-    	<div class="col-md-3">
-    		<label for="host-1">Host 1:</label>
-    		<input class="form-control" id="host-1" name="host-1" type="text" required></input><br>
-    	</div>
-    	<div class="col-md-3">
-    		<label for="host-2">Host 2:</label>
-    		<input class="form-control" id="host-2" name="host-2" type="text"></input><br>
-    	</div>
-    	<div class="col-md-3">
-    		<label for="host-3">Host 3:</label>
-    		<input class="form-control" id="host-3" name="host-3" type="text"></input><br>
-    	</div>
-    	<div class="col-md-3">
-    		<label for="host-4">Host 4:</label>
-    		<input class="form-control" id="host-4" name="host-4" type="text"></input>
-    	</div>
-    	<div class="col-md-12">
-    		<input class="form-control" id="submit" type="submit"></input>
-    	</div>
+    {{ showForm.hidden_tag() }}
+    <div class="col-md-6 form-group">
+        {{ showForm.showName.label }}
+        {{ showForm.showName(class_="form-control", required="") }}
+   	</div>
+   	<div class="col-md-6 form-group">
+        {{ showForm.showDay.label }}
+        {{ showForm.showDay(class_="form-control", required="") }}
+   	</div><br>
+   	<div class="col-md-6 form-group">
+        {{ showForm.showStart.label }}
+        {{ showForm.showStart(class_="form-control", required="") }}
+   	</div><br>
+   	<div class="col-md-6 form-group">
+        {{ showForm.showEnd.label }}
+        {{ showForm.showEnd(class_="form-control", required="")}}
+   	</div><br>
+   	<div class="col-md-3 form-group">
+        {{ showForm.host1.label }}
+        {{ showForm.host1(class_="form-control") }}
+   	</div><br>
+   	<div class="col-md-3 form-group">
+        {{ showForm.host2.label }}
+        {{ showForm.host2(class_="form-control") }}
+   	</div><br>
+   	<div class="col-md-3 form-group">
+        {{ showForm.host3.label }}
+        {{ showForm.host3(class_="form-control") }}
+   	</div><br>
+   	<div class="col-md-3 form-group">
+        {{ showForm.host4.label }}
+        {{ showForm.host4(class_="form-control") }}
+   	</div><br>
+   	<div class="col-md-12">
+   		<input class="form-control" id="submit" type="submit"></input>
+   	</div>
 </form>
 </div>
 </div>
