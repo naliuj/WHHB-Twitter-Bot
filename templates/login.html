@@ -10,8 +10,9 @@
 <div class="alert alert-info"><strong>Welcome!</strong> Please log in below:</div>
 {% endif %}
 <form action="" method="post" role="form">
-	<input type="text" class="form-control" name="username" placeholder="Username" value="{{ request.form.username }}" id="username" required><br>
-	<input type="password" class="form-control" name="password" placeholder="Password" value="{{ request.form.password }}" required><br>
+	{{ loginForm.hidden_tag() }}
+	{{ loginForm.username(class_="form-control", placeholder="Username") }}<br>
+	{{ loginForm.password(class_="form-control", placeholder="Password") }}<br>
 	<input type="submit" class="form-control btn btn-info" value="Log In">
 </form><br>
 {% endblock %}

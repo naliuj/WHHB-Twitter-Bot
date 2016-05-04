@@ -7,6 +7,7 @@ from make_table import get_table
 from user_management import login_db
 from user_management.page_restrictions import no_login, login_required, admin_required
 from user_management.table import get_table as user_table
+from forms.login import LoginForm
 
 app = Flask(__name__)
 
@@ -25,16 +26,17 @@ def index():
 @no_login
 def login():
     error = None
-    if request.method == "POST":
-        if login_db.verify(request.form["username"], request.form["password"]):
+    loginForm = LoginForm()
+    if request.method == "POST" and loginForm.validate():
+        if login_db.verify(loginForm.username.data, loginForm.password.data):
             session["logged_in"] = True
-            session["username"] = request.form["username"]
-            session["type"] = login_db.get_type(request.form["username"])
+            session["username"] = loginForm.username.data
+            session["type"] = login_db.get_type(loginForm.username.data)
             flash("You have been logged in!")
             return redirect(url_for("index"))
         else:
             error = "Invalid Credentials: Please try again."
-    return render_template("login.html", subheading="Log In", error=error, page="exempt")
+    return render_template("login.html", subheading="Log In", error=error, loginForm=loginForm, page="exempt")
 
 
 @app.route("/logout/")
