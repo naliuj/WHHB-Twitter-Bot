@@ -5,21 +5,18 @@
 </div>
 <div class="row well" id="add-account">
 	<form role="form" action="/user-management/" method="post">
+		{{ addUser.hidden_tag() }}
 		<div class="col-md-3">
-			<input class="form-control" type="text" name="username" id="username" placeholder="Username" required>
+			{{ addUser.username(class_="form-control", placeholder="Username", required="") }}
 		</div>
 		<div class="col-md-3">
-			<input class="form-control" type="password" name="password" id="password" placeholder="Password" required>
+			{{ addUser.password(class_="form-control", placeholder="Password", required="") }}
 		</div>
 		<div class="col-md-3">
-			<input class="form-control" type="password" name="confirm-password" id="confirm-password" placeholder="Confirm Password" oninput="check(this)" required>
+			{{ addUser.confirmPassword(class_="form-control", placeholder="Confirm Password", oninput="check(this)", required="") }}
 		</div>
 		<div class="col-md-3">
-			<select class="form-control" name="type" required>
-				<option value="" disabled selected hidden>Account Type</option>
-				<option value="user">user</option>
-				<option value="admin">admin</option>
-			</select>
+			{{ addUser.type(class_="form-control", required="") }}
 		</div><br><br>
 		<div class="col-md-12">
 			<input class="form-control btn btn-success" type="submit" name="submit" value="Add User">

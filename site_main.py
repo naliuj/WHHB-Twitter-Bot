@@ -8,7 +8,8 @@ from user_management import login_db
 from user_management.page_restrictions import no_login, login_required, admin_required
 from user_management.table import get_table as user_table
 from forms.login import LoginForm
-from forms.add_show import AddShow
+from forms.add_show import AddShowForm
+from forms.add_user import AddUserForm
 
 app = Flask(__name__)
 
@@ -59,7 +60,7 @@ def schedule():
 @app.route("/add/", methods=["GET", "POST"])
 @login_required
 def add_show():
-    showForm = AddShow()
+    showForm = AddShowForm()
     if request.method == "POST" and showForm.validate():
         show_info = [showForm.showName.data,
                      showForm.showDay.data,
@@ -91,9 +92,11 @@ def remove_show(day, start, end):
 @login_required
 @admin_required
 def users():
-    if request.method == "POST":
-        login_db.add([request.form["username"], request.form["password"], request.form["type"]])
-    return render_template("user_management.html", subheading="User Management", table=user_table(),
+    addUser = AddUserForm()
+    if request.method == "POST" and addUser.validate():
+        login_db.add([addUser.username.data, addUser.password.data, addUser.type.data])
+        return redirect(url_for("users"))
+    return render_template("user_management.html", subheading="User Management", addUser=addUser, table=user_table(),
                            accounts=login_db.read(), page="user-management")
 
 

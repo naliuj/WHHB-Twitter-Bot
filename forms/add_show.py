@@ -3,7 +3,7 @@ from wtforms import StringField, SelectField
 from wtforms.validators import DataRequired
 
 
-class AddShow(Form):
+class AddShowForm(Form):
 
     showName = StringField('Show Name', validators=[DataRequired()])
 
