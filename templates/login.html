@@ -11,8 +11,8 @@
 {% endif %}
 <form action="" method="post" role="form">
 	{{ loginForm.hidden_tag() }}
-	{{ loginForm.username(class_="form-control", placeholder="Username") }}<br>
-	{{ loginForm.password(class_="form-control", placeholder="Password") }}<br>
+	{{ loginForm.username(class_="form-control", placeholder="Username", required="") }}<br>
+	{{ loginForm.password(class_="form-control", placeholder="Password", required="") }}<br>
 	<input type="submit" class="form-control btn btn-info" value="Log In">
 </form><br>
 {% endblock %}
