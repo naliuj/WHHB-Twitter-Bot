@@ -11,6 +11,7 @@ from forms.login import LoginForm
 from forms.add_show import AddShowForm
 from forms.add_user import AddUserForm
 from forms.manual_tweet import ManualTweetForm
+from forms.change_password import ChangePasswordForm
 
 app = Flask(__name__)
 
@@ -147,13 +148,15 @@ def manual_tweet_page():
 @app.route("/settings/", methods=["GET", "POST"])
 @login_required
 def change_password():
+    changePass = ChangePasswordForm()
     if request.method == "POST":
-        if login_db.verify(session["username"], request.form["old_pass"]):
-            login_db.update(session["username"], request.form["new_pass"])
+        if login_db.verify(session["username"], changePass.oldPassword.data):
+            login_db.update(session["username"], changePass.newPassword.data)
             flash("pass-updated")
         else:
             flash("bad-old")
-    return render_template("change_pass.html", subheading="Account Settings", message=None, page="settings")
+    return render_template("change_pass.html", subheading="Account Settings", message=None, changePass=changePass,
+                           page="settings")
 
 
 @app.errorhandler(404)

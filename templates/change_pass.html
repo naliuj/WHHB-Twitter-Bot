@@ -14,9 +14,10 @@
 	{% endfor %}
 {% endif %}
 <form action="" role="form" method="post">
-	<input class="form-control" type="password" id="new_pass" name="new_pass" placeholder="New Password" required><br>
-	<input class="form-control" type="password" id="confirm_new_pass" name="confirm_new_pass" placeholder="Confirm New Password" oninput="check(this)" required><br>
-	<input class="form-control" type="password" name="old_pass" placeholder="Old Password" required><br>
+	{{ changePass.hidden_tag() }}
+	{{ changePass.newPassword(class_="form-control", id="new_pass", placeholder="New Password", required="") }}<br>
+	{{ changePass.confirmNewPassword(class_="form-control", placeholder="Confirm New Password", oninput="check(this)", required="") }}<br>
+	{{ changePass.oldPassword(class_="form-control", placeholder="Old Password", required="") }}<br>
 	<input class="form-control" type="submit" value="Change Password">
 </form>
 <script type="text/javascript">
