@@ -13,7 +13,8 @@ def get_show(day, time):
     elif len(hosts) >= 3:
         hosts = ', '.join(hosts[0:len(hosts)-1]) + ', and {}'.format(hosts[-1])
     show_templates = ["Tune in to 99.9 FM now for {} with {}!".format(show[0], hosts),
-                      "{} is now live with {} on 99.9 FM!".format(show[0], hosts)]
+                      "{} is now live with {} on 99.9 FM!".format(show[0], hosts),
+                      "Check out {} with {} now on 99.9 FM!".format(show[0], hosts)]
     if show is None:
         pass
     else:

@@ -27,7 +27,7 @@ def index():
 def login():
     error = None
     loginForm = LoginForm()
-    if request.method == "POST" and loginForm.validate():
+    if loginForm.validate_on_submit():
         if login_db.verify(loginForm.username.data, loginForm.password.data):
             session["logged_in"] = True
             session["username"] = loginForm.username.data
@@ -59,7 +59,7 @@ def schedule():
 @login_required
 def add_show():
     showForm = AddShowForm()
-    if request.method == "POST" and showForm.validate():
+    if showForm.validate_on_submit():
         show_info = [showForm.showName.data,
                      showForm.showDay.data,
                      showForm.showStart.data,
@@ -91,7 +91,7 @@ def remove_show(day, start, end):
 @admin_required
 def users():
     addUser = AddUserForm()
-    if request.method == "POST" and addUser.validate():
+    if addUser.validate_on_submit():
         login_db.add([addUser.username.data, addUser.password.data, addUser.type.data])
         return redirect(url_for("users"))
     return render_template("user_management.html", subheading="User Management", addUser=addUser, table=user_table(),
@@ -123,7 +123,7 @@ def delete_user(username):
 @login_required
 def manual_tweet_page():
     tweetForm = ManualTweetForm()
-    if request.method == "POST" and tweetForm.validate():
+    if tweetForm.validate_on_submit():
         twit = authenticate()
         tweet = tweetForm.tweet.data
         try:
@@ -145,7 +145,7 @@ def manual_tweet_page():
 @login_required
 def change_password():
     changePass = ChangePasswordForm()
-    if request.method == "POST":
+    if changePass.validate_on_submit():
         if login_db.verify(session["username"], changePass.oldPassword.data):
             login_db.update(session["username"], changePass.newPassword.data)
             flash("pass-updated")
