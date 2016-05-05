@@ -7,11 +7,7 @@ from make_table import get_table
 from user_management import login_db
 from user_management.page_restrictions import no_login, login_required, admin_required
 from user_management.table import get_table as user_table
-from forms.login import LoginForm
-from forms.add_show import AddShowForm
-from forms.add_user import AddUserForm
-from forms.manual_tweet import ManualTweetForm
-from forms.change_password import ChangePasswordForm
+from forms import LoginForm, AddShowForm, AddUserForm, ManualTweetForm, ChangePasswordForm
 
 app = Flask(__name__)
 
