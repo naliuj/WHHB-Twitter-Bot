@@ -128,8 +128,7 @@ def manual_tweet_page():
         tweet = tweetForm.tweet.data
         try:
             twit.update_status(tweet)
-            return render_template("manual_tweet.html", subheading="Send Tweet Manually", status="success",
-                                   tweetForm=tweetForm, page="manual-tweet")
+            return redirect(url_for("manual_tweet_page"))
         except tweepy.error.TweepError as e:
             if session["type"] == "dev":
                 return render_template("manual_tweet.html", subheading="Send Tweet Manually", status="error", error=e,
